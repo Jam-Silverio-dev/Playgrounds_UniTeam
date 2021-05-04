@@ -1,31 +1,29 @@
 import java.util.Scanner;
 
 public class SimpleBankingApp {
-	private static String username;
 	private static double balance;
-	private static double startingBalance;
 
 	public static BankAccount nBankAccount;
 	public static Scanner sc = new Scanner(System.in);
-	public static String currency = "P";
+	public static String currency = "$";
 	
 	public static void main(String[] args) {
 		
 		clientInformation();
-		menu();
+		
 
 	}
 	
 	public static void clientInformation() {
 		System.out.println("***WELCOME TO THE BANK***");
 		System.out.println("\nClient name: >>");
-		username = sc.next();
+		String username = sc.next();
 		System.out.println("Starting balance: >>");
-		startingBalance = sc.nextDouble();
+		double startingBalance = sc.nextDouble();
 		nBankAccount = new BankAccount(username, startingBalance, startingBalance);
 		System.out.println("\nWelcome, " + username + "! \nYour starting balance is " + currency + startingBalance + ".");
 
-
+		menu();
 	}
 
 	public static void menu() {
@@ -40,7 +38,7 @@ public class SimpleBankingApp {
 	}
 	
 	public static void selectOperation() {
-		System.out.println("\n Choose from the menu.");
+		System.out.println("\nChoose from the menu.");
 		int choice = sc.nextInt();
 		
 		switch (choice) {
@@ -107,12 +105,13 @@ public class SimpleBankingApp {
 	public static void transferFunds() {
 
 		balance = nBankAccount.getBalance();
-		System.out.println("YOUR CURRENT BALANCE is " + currency + balance + ".");
+		System.out.println("\nYOUR CURRENT BALANCE is " + currency + balance + ".");
 		System.out.println("How much will be withdrawn?");
 		double withdraw = sc.nextDouble();
-		
-		if ((balance -= withdraw) == 0) {
-			System.out.println("\nSorry, you must leave at least P100 in your balance.");
+		System.out.println("Updated balance is " + balance);
+		if ((balance - withdraw) == 0 || (balance - withdraw) < 100) {
+
+			System.out.println("\nSorry, you must leave at least " + currency + "100 in your balance.");
 			willExit();
 		} else if ((balance -= withdraw) < 0) {
 			System.out.println("\nSorry, you can't withdraw beyond your balance.");
@@ -132,7 +131,7 @@ public class SimpleBankingApp {
 			
 
 			} else if (choice == 2) {
-				selectOperation();
+				transferFunds();
 			} else {
 				System.out.println("Invalid input.");
 				addFunds();
@@ -145,7 +144,7 @@ public class SimpleBankingApp {
 		System.out.println("\nDo you want to exit? Type 1-Yes or 2-No.");
 		int choice = sc.nextInt();
 		if (choice == 1) {
-			System.out.println("\nThank you" + nBankAccount.getUsername() + "! Come back again.");
+			System.out.println("\nThank you, " + nBankAccount.getUsername() + "! Come back again.");
 			sc.close();
 			System.exit(0);
 		} else if (choice == 2) {
