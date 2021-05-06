@@ -1,0 +1,13 @@
+1. (Greatest Common Divisor) The greatest common divisor (GCD) of two integers is the largest integer that evenly divides each of the two numbers. Write a method getGCD() that returns the greatest common divisor of two integers.
+
+2. (Reversing Digits) Write a method reverseDigits() that takes an integer value and returns the number with its digits reversed. For example, given the number 7631, the method should return 1367.
+
+3. (Box of Asterisks) Write a method displaySquare() that displays a hollow square of asterisks whose side is specified in integer parameter side. For example, if the side is 4, this will be displayed:
+
+****
+
+*  *
+
+*  *
+
+****
