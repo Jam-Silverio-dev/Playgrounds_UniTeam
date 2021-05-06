@@ -1,28 +1,32 @@
+package com.accenture;
+
 import java.util.Scanner;
 
 public class CommandLineCalculator {
 
 	public static Scanner sc = new Scanner(System.in);
+	public static int choice = 0;
 	public static double a = 0;
 	public static double b = 0;
 	public static double result = 0;
 	
 	public static void main(String[] args) {
-		
-		menu();
 
+		while(true) {
+			menu();
+			selectOperation();
+		}
 	}
 	
 	
 	public static void menu() {
-		System.out.println("***MENU***");
+		System.out.println("\n***MENU***");
 		System.out.println("1-Add");
 		System.out.println("2-Subtract");
 		System.out.println("3-Multiply");
 		System.out.println("4-Divide");
 		System.out.println("5-Exit the program");
 		
-		selectOperation();
 	}
 	
 	
@@ -70,7 +74,7 @@ public class CommandLineCalculator {
 		a = nums[0];
 		b = nums[1];
 		
-		System.out.println("The first number is " + a + " and the second number is " + b);
+		System.out.println("The first number is " + a + " and the second number is " + b +".");
 		
 		switch(operation) {
 			case "add":
@@ -89,26 +93,7 @@ public class CommandLineCalculator {
 		System.out.println("\nCalculating...");
 		System.out.println(">>The answer is: " + result);
 		
-		willPlayAgain();
 		
 	}
 
-
-	public static void willPlayAgain() {
-		System.out.println("\nWant to try again?\nChoose 1-Yes or 2-No.");
-		
-		int tryAgain = sc.nextInt();
-
-		
-		if (tryAgain == 1) {
-			menu();
-		} else if (tryAgain == 2) {
-			System.out.println("\nThank you! Come back again.");
-			sc.close();
-			System.exit(0);
-		} else {
-			System.out.println("Invalid input.");
-			willPlayAgain();
-		}
-	}
 }
