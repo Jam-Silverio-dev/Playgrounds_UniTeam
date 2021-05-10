@@ -5,14 +5,15 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class Store {
 	private Customer customer;
 	private Cashier cashier;
-	private ArrayList<Item> storeItems;
+	private List<Item> storeItems;
 	
-	int choice = 0;
-	String fileName = "src/main/java/com/accenture/bootcamp/day7/shoppingcart/store-items.csv";
+	private static int choice = 0;
+	private static String fileName = "src/main/java/com/accenture/bootcamp/day7/shoppingcart/store-items.csv";
 	
 	ArrayList<String> saveName = new ArrayList<String>();
 	ArrayList<Double> savePrice = new ArrayList<Double>();
@@ -92,7 +93,7 @@ public class Store {
 			System.out.println("Store Items");
 			System.out.println("---------------------------------------------------------------");
 			
-			storeItems = new ArrayList<Item>();
+			storeItems = new ArrayList<Item>();//List<Item> = new ArrayList<Item>(); // Implemented the interface
 			while (iter1.hasNext()) {
 				String item = iter1.next();
 				double price = iter2.next();
