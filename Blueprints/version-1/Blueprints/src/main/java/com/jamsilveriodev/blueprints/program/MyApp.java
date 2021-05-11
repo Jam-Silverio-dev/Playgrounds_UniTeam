@@ -229,10 +229,10 @@ public class MyApp {
 
 	private static int[] countForDuplicates(List<String> items, List<Integer> itemsList) {
 		int counter = 1;
-		for (int i=0; i<items.size()-1; i++) {
-			for (int j = i; j<items.size()-1; j++) {
+		for (int i=0; i<items.size()-2; i++) {
+			for (int j = 0; j<items.size()-1; j++) {
 				if (items.get(i).equals(items.get(j+1))) {
-					counter += 1;
+					counter ++;
 				}
 			}
 			itemsList.add(counter);
