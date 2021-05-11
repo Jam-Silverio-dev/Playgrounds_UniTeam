@@ -20,7 +20,8 @@ public class Theater extends Building {
 	@Override
 	public void showEvents() {
 		System.out.println("Events ready to be hosted !!");
-		
+		System.out.println();
+		System.out.println();
 	}
 	
 	

@@ -1,0 +1,48 @@
+PCShoppingCartMethods
+
+    public void modifyPCItem(String currentItem, String newItem) {
+        int position = findItem(currentItem);
+        if(position >= 0) {
+            modifyPCItem(position, newItem);
+        }
+
+    }
+    private void modifyGroceryItem(int position, String newItem) {
+//        pcItemsList.set(position, newItem);
+        System.out.println("PC item " + (position+1) + " has been modified.");
+    }
+
+    public void removePCItem(String item) {
+        int position = findItem(item);
+        if(position >= 0) {
+        	removePCItem(position);
+        }
+    }
+    private void removePCItem(int position) {
+        pcItemsList.remove(position);
+    }
+
+    private int findItem(String searchItem) {
+        return pcItemsList.indexOf(searchItem);
+    }
+
+    public boolean onFile(String searchItem) {
+        int position = findItem(searchItem);
+        if(position >=0) {
+            return true;
+        }
+
+        return false;
+    }
+	
+    
+    public void printpcItemsList() {
+        System.out.println("You have " + pcItemsList.size() + " items in your grocery list");
+        for(int i=0; i< pcItemsList.size(); i++) {
+            System.out.println((i+1) + ". " + pcItemsList.get(i));
+        }
+    }
+    
+    public int size() {
+    	return this.pcItemsList.size();
+    }
