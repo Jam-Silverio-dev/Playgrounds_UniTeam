@@ -1,5 +1,7 @@
 package com.accenture.bootcamp.day7.shoppingcart;
 
+import java.util.List;
+
 public class Customer extends Person {
 	private ShoppingCart cart;
 	
@@ -17,13 +19,14 @@ public class Customer extends Person {
 		this.cart = cart;
 	}
 	
-	public void addToCart(Item item) {
-		cart.addItem(item);
+	public void addToCart(List<Item> item) {
+		cart.addItem((List<Item>) item);
 	}
 	
 	public void removeFromCart(Item item) {
-		cart.removeItem(item);
+		cart.removeItem((List<Item>) item);
 	}
+	
 	
 
 }

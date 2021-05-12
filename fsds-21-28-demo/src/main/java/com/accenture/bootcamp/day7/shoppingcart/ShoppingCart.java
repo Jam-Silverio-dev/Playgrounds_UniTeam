@@ -1,25 +1,25 @@
 package com.accenture.bootcamp.day7.shoppingcart;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class ShoppingCart {
-	private ArrayList<Item> items;
+	private List<Item> items;
 
 	public ShoppingCart() {
 		//Empty constructor
 	}
 
-	public ArrayList<Item> getItems() {
-		return items;
+	public List<Item> getItems() {
+		return (List<Item>) items;
 	}
 	
-	public void addItem(Item item) {
-		items.add(item);
+	public void addItem(List<Item> item) {
+		items.add((Item) item);
 	}
 	
-	public void removeItem(Item item) {
+	public void removeItem(List<Item> item) {
 		
-		items.remove(item);
+		items.remove((Item) item);
 	}
 	
 	public double computeTotalPrice() {

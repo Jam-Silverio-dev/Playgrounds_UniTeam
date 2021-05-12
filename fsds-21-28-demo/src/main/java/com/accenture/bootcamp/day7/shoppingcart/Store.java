@@ -12,8 +12,8 @@ public class Store {
 	private Cashier cashier;
 	private List<Item> storeItems;
 	
-	private static int choice = 0;
-	private static String fileName = "src/main/java/com/accenture/bootcamp/day7/shoppingcart/store-items.csv";
+	private int choice = 0;
+	private String fileName = "src/main/java/com/accenture/bootcamp/day7/shoppingcart/store-items.csv";
 	
 	ArrayList<String> saveName = new ArrayList<String>();
 	ArrayList<Double> savePrice = new ArrayList<Double>();
@@ -44,6 +44,7 @@ public class Store {
 		switch(choice) {
 			case 1: 
 				readStoreItemsFromFile(fileName);
+				selectItem();
 				break;
 			case 2:
 				int size = customer.getCart().getItems().size();
@@ -94,20 +95,16 @@ public class Store {
 			System.out.println("---------------------------------------------------------------");
 			
 			storeItems = new ArrayList<Item>();//List<Item> = new ArrayList<Item>(); // Implemented the interface
+			int i = 0;
 			while (iter1.hasNext()) {
 				String item = iter1.next();
 				double price = iter2.next();
-				System.out.println(item + " " + price);
+				System.out.println("[" + i + "] " + item + "\t" + price);
 				storeItems.add(new Item(item, price)); 
+				i++;
 			}
 			System.out.println("---------------------------------------------------------------");
-			System.out.println("[0] - [6] to select items");
-
-			
-			System.out.println("\nSystem exiting...");
-			System.exit(0);
-			
-			//TODO
+			System.out.println("[0] - [" + (i-1) + "] to select items");
 			System.out.println("Select item to add: ");
 
 		      
@@ -118,6 +115,22 @@ public class Store {
 		
 	}
 	
+	public void selectItem() {
+		Scanner sc2 = new Scanner(System.in);
+		int choice = sc2.nextInt();
+		sc2.close();
+		if (!(choice <= 0 || choice >= storeItems.size())) {
+			System.out.println(choice);
+//			System.out.println(storeItems);
+//			System.out.println(storeItems.get(choice));
+		} else {
+			System.out.println("Invalid input");
+			//go back to shop()
+		}
+		customer.addToCart(storeItems.get(choice));
+		System.out.println(customer.getCart());
+	}
+
 	public void printReceipt() {
 		//Prints the receipt with System.out.print() on the screen
 	}
