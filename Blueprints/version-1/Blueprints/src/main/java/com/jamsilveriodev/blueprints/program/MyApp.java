@@ -2,6 +2,8 @@ package com.jamsilveriodev.blueprints.program;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -27,12 +29,18 @@ public class MyApp {
 	private static List<String> itemName = new ArrayList<String>();
 	private static List<Double> itemPrice = new ArrayList<Double>();
 	private static List<Item> items = new ArrayList<Item>();
-	private static String path = "src/main/java/com/jamsilveriodev/blueprints/program/store-items.csv";
+	private static List<String> finalItems1 = new ArrayList<String>();
+	private static List<String> finalItems2 = new ArrayList<String>();
+	private static List<String> export = new ArrayList<String>();
+	private static String pathI = "src/main/java/com/jamsilveriodev/blueprints/program/store-items.csv";
+//	private static String pathO = "src/main/java/com/jamsilveriodev/blueprints/program/receipt.txt";
+	private static String pathO = "C:/Users/Jam-Silverio-dev/Desktop/receipt.txt";
+	
 
 	public static void main(String[] args) {
 
 		try {
-			File textfile = new File(path);
+			File textfile = new File(pathI);
 			Scanner fileReader = new Scanner(textfile);
 			while (fileReader.hasNextLine()) {
 				String data = fileReader.nextLine();
@@ -78,6 +86,12 @@ public class MyApp {
 					break;
 				case 3:
 					checkout();
+					try {
+						exportReceipt();
+					} catch (IOException e) {
+						System.out.println("Receipt cannot be printed.");
+					}
+					System.exit(0);
 					break;
 				case 0:
 					quit = true;
@@ -155,16 +169,14 @@ public class MyApp {
 		System.out.println("                            RECEIPT                               ");
 		System.out.println("------------------------------------------------------------------");
 		System.out.println("Cashier: " + pccashier.getName() + "\tShift: " + pccashier.getStartOfShift() + " - " + pccashier.getEndOfShift());
-		System.out.println("Date: " + LocalDate.now());
+		System.out.println("Date: " + LocalDate.of(2020,05,12));
 		System.out.println("------------------------------------------------------------------");
 		System.out.println("Items:");
-		System.out.println("  Item name    \t\tPrice\t\tQty\t\tTotal Price");
+		System.out.println("  Item name    \t\t\tPrice\t\tQty\t\tTotal Price");
 		
 		printReceipt();
-		
 		System.out.println("TOTAL: " + pcscart.computeTotalPrice());
 		System.out.println("\n\nTHANK YOU AND COME BACK AGAIN!");
-		System.exit(0);
 	}
 
 	public static void printPCItems() {
@@ -191,8 +203,7 @@ public class MyApp {
 			items.add(pcscart.getPcItemsList().get(i).toString());
 		}
 		
-		List<String> finalItems1 = new ArrayList<String>();
-		List<String> finalItems2 = new ArrayList<String>();
+
 		TreeSet<String> ts1 = new TreeSet<String>(items);
 
 		List<Integer> uniqueItems = new ArrayList<Integer>();
@@ -214,7 +225,7 @@ public class MyApp {
 		while (it2.hasNext()) {
 			String item = it2.next();
 			double price = Double.parseDouble(item.substring(item.length()-7, item.length()));
-			finalItems2.add("  " + item + "\t\t" + duplicates[k] + "\t\t" + (duplicates[k] * price));
+			finalItems2.add("  " + item + "\t\t\t" + duplicates[k] + "\t\t" + (duplicates[k] * price));
 			k++;
 		}
 		
@@ -228,15 +239,17 @@ public class MyApp {
 	}
 
 	private static int[] countForDuplicates(List<String> items, List<Integer> itemsList) {
-		int counter = 1;
+		int counter = 0;
 		for (int i=0; i<items.size()-2; i++) {
-			for (int j = 0; j<items.size()-1; j++) {
+			for (int j = -1; j<items.size()-1; j++) {
 				if (items.get(i).equals(items.get(j+1))) {
 					counter ++;
+				} else {
+					counter = 0;
 				}
 			}
 			itemsList.add(counter);
-			counter = 1;
+			counter = 0;
 		}
 		
 		int[] itemsArray = new int[itemsList.size()];
@@ -252,5 +265,33 @@ public class MyApp {
 		printInstructions();
 	}
 	
+	public static void exportReceipt() throws IOException {
+		
+		export.add("------------------------------------------------------------------");
+		export.add("                            RECEIPT                               ");
+		export.add("------------------------------------------------------------------");
+		export.add("Cashier: " + pccashier.getName() + "\tShift: " + pccashier.getStartOfShift() + " - " + pccashier.getEndOfShift());
+		export.add("Date: " + LocalDate.of(2020,05,12));
+		export.add("------------------------------------------------------------------");
+		export.add("Items:");
+		export.add("  Item name    \t\t\tPrice\t\tQty\t\tTotal Price");
+		export.add("------------------------------------------------------------------");
+		
+		for (String item : finalItems2) {
+			export.add(item);
+		}
+		export.add("------------------------------------------------------------------");
+		
+		
+		String fileContent = "";
+		for (String line : export) {
+			fileContent += line;
+		}
+		
+		FileWriter writer = new FileWriter(pathO);
+		writer.write(fileContent);
+		writer.close();
+
+	}
 
 }
