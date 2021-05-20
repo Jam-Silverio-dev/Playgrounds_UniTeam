@@ -21,7 +21,8 @@ public class ShoppingCartMain {
 //		String date = localdate.toString();	//getDate()
 		
 		Store store = new Store(customer, cashier);
-		store.shop();
+//		store.shop();
+
 	}
 
 }

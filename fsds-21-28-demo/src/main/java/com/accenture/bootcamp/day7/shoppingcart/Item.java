@@ -1,6 +1,6 @@
 package com.accenture.bootcamp.day7.shoppingcart;
 
-public class Item {
+//public class Item {
 	private String name;
 	private double price;
 	
@@ -27,7 +27,7 @@ public class Item {
 
 	@Override
 	public String toString() {
-		return this.name;
+		return this.name + "," + this.price;
 	}
 	
 	
